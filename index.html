@@ -117,7 +117,7 @@
       cursor: pointer;
       height: 50px;
       width: 50px;
-      background-image: url(images/premierleague.png);
+      background-image: url(coffeeicon.png);
     }
     .mapboxgl-popup {
       padding-bottom: 50px;
@@ -178,16 +178,16 @@
         mapboxgl.accessToken = 'pk.eyJ1IjoiamFjb2JmMTkiLCJhIjoiY2t6NTRvM3U3MG1zdTJ2bXBkamE0ajJuNiJ9.8ROz5Bb-3mmOKzZN7QqHlw';
         const map = new mapboxgl.Map({
           container: 'map',
-          style: 'mapbox://styles/jacobf19/ckwigbmr25a4c14rx05emxggb',
-          center: [-122.65, 47.31],
-          zoom: 13.07,
+          style: 'mapbox://styles/jacobf19/cl0shw52p000t14oangn94z6j',
+          center: [-122.304, 47.665],
+          zoom: 12.88,
           scrollZoom: true
         });
         async function geojsonFetch() {
             let response = await fetch('coffeeshoprankings.geojson');
             let coffeeshoprankings = await response.json();
         coffeeshoprankings.features.forEach(function (coffeeshopranking, i) {
-        coffeeshoprankings.properties.id = i;
+        coffeeshopranking.properties.id = i;
         });
         map.on('load', function loadingData() {
               map.addSource('coffeeshoprankings', {
@@ -198,7 +198,7 @@
               accessToken: mapboxgl.accessToken, 
               mapboxgl: mapboxgl, 
               marker: true, 
-              bbox: [-5.71287, 49.95987, 1.74176, 55.81129] 
+              bbox: false
               });
               buildLocationList(coffeeshoprankings);
               map.addControl(geocoder, 'top-left');
@@ -309,16 +309,16 @@
             sublink.id = `link-${coffeeshopranking.properties.id}`;
             sublink.innerHTML = `${coffeeshopranking.properties.Name}`;
             const details1 = listing.appendChild(document.createElement('div'));
-            details1.innerHTML = `<div>City: ${coffeeshopranking.properties.Total-Score}</div>`
+            details1.innerHTML = `<div>Score: ${coffeeshopranking.properties.TotalScore}</div>`
             const details2 = listing.appendChild(document.createElement('div'));
-            details2.innerHTML = `<div>Capacity: ${coffeeshopranking.properties.Neighrbohood}</div>`
+            details2.innerHTML = `<div>Neighborhood: ${coffeeshopranking.properties.Neighborhood}</div>`
             if (coffeeshopranking.properties.distance) {
             const roundedDistance = Math.round(coffeeshopranking.properties.distance * 100) / 100;
             details3.innerHTML += `<div><strong>${roundedDistance} miles away</strong></div>`;
             }
             }
             }
-            link.addEventListener('click', function () {
+            const link = document.addEventListener('click', function () {
             for (const feature of coffeeshoprankings.features) {
             if (this.id === `link-${feature.properties.id}`) {
             flyToShop(feature);
@@ -343,10 +343,10 @@
             if (popUps[0]) popUps[0].remove();
             const popup = new mapboxgl.Popup({ closeOnClick: true })
             .setLngLat(currentFeature.geometry.coordinates)
-            .setHTML(`<h3>${currentFeature.properties.Name}</h3><h3>${currentFeature.properties.Address}</h3><h4>${currentFeature.properties.Total-Score}</h4>`)
+            .setHTML(`<h3>${currentFeature.properties.Name}</h3><h3>${currentFeature.properties.Address}</h3><h4>${currentFeature.properties.TotalScore}</h4>`)
             .addTo(map);
             }
-        geojsonFetch();
+      geojsonFetch();
       </script>
 </body>
 </html>
