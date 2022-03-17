@@ -58,12 +58,12 @@
     }
     .heading {
       background: rgb(255, 255, 255);
-      border-bottom: 1px solid rgba(95, 89, 85, 0.788);
+      border-bottom: 15px solid rgb(83, 37, 10, 0.788);
       min-height: 60px;
       line-height: 60px;
       padding: 0 10px;
-      background-color: rgb(83, 37, 10, 0.788);
-      color: rgba(255, 255, 255);
+      background-color: #439be7;
+      color: rgb(255, 255, 255);
     }
     .listings {
       height: 100%;
@@ -80,27 +80,28 @@
       }
     .listings .item .title {
       display: block;
-      color: #4585c2;
+      color: #439be7;
       font-weight: 700;
     }
+    .listings .item.active .title,
+    .listings .item .title:hover { 
+      color: #0a0a09; 
+      }
     .listings .item .title small { font-weight: 400; }
     .listings .item .subtitle {
       display: block;
-      color: #d68185;
+      color: rgb(83, 37, 10, 0.788);
       font-weight: 700;
     }
     .listings .item .subtitle small { 
       font-weight: 400; 
       }
-    .listings .item.active .subtitle,
-    .listings .item .subtitle:hover { 
-      color: #0a0a09; 
-      }
+    
     .listings .item.active {
       background-color: #f8f8f8;
     }
     ::-webkit-scrollbar {
-      width: 3px;
+      width: 10px;
       height: 3px;
       border-left: 0;
       background: rgba(0, 0, 0, 0.1);
@@ -109,14 +110,14 @@
       background: none;
     }
     ::-webkit-scrollbar-thumb {
-      background: #d68185;
+      background: #439be7;
       border-radius: 0;
     }
     .marker {
       border: none;
       cursor: pointer;
-      height: 50px;
-      width: 50px;
+      height: 10px;
+      width: 10px;
       background-image: url(coffeeicon.png);
     }
     .mapboxgl-popup {
@@ -169,7 +170,7 @@
 <body>
 <div class='sidebar'>
 <div class='heading'>
-<h1>Jake's Remote-Work Coffee Shop Rankings</h1>
+<h1>Jake's Coffee Shops for Remote-Working</h1>
 </div>
 <div id='listings' class='listings'></div>
 </div>
@@ -302,12 +303,12 @@
             link.href = '#';
             link.className = 'title';
             link.id = `link-${coffeeshopranking.properties.id}`;
-            link.innerHTML = `${coffeeshopranking.properties.Address}`;
+            link.innerHTML = `${coffeeshopranking.properties.Name}`;
             const sublink = listing.appendChild(document.createElement('a'));
             sublink.href = '#';
             sublink.className = 'subtitle';
             sublink.id = `link-${coffeeshopranking.properties.id}`;
-            sublink.innerHTML = `${coffeeshopranking.properties.Name}`;
+            sublink.innerHTML = `${coffeeshopranking.properties.Address}`;
             const details1 = listing.appendChild(document.createElement('div'));
             details1.innerHTML = `<div>Score: ${coffeeshopranking.properties.TotalScore}</div>`
             const details2 = listing.appendChild(document.createElement('div'));
